@@ -18,6 +18,7 @@
 		8815FC1D1DEC7408006B75E0 /* iOS_AlamoFireUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8815FC1C1DEC7408006B75E0 /* iOS_AlamoFireUITests.swift */; };
 		8815FC2B1DEC75F0006B75E0 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8815FC2A1DEC75F0006B75E0 /* TestViewController.swift */; };
 		8815FC2D1DEC7920006B75E0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8815FC2C1DEC7920006B75E0 /* Post.swift */; };
+		8815FC2F1DEC8C29006B75E0 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8815FC2E1DEC8C29006B75E0 /* Manager.swift */; };
 		AAECFDC67F7EBFF67E9143B9 /* Pods_iOS_AlamoFireTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DDED02A31E0F3677B141C50 /* Pods_iOS_AlamoFireTests.framework */; };
 		C29E24F1C8EA264D8C9FA3B7 /* Pods_iOS_AlamoFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0D42083F93134CE28B51F1B /* Pods_iOS_AlamoFire.framework */; };
 /* End PBXBuildFile section */
@@ -60,6 +61,7 @@
 		8815FC1E1DEC7408006B75E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8815FC2A1DEC75F0006B75E0 /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		8815FC2C1DEC7920006B75E0 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		8815FC2E1DEC8C29006B75E0 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		9DDED02A31E0F3677B141C50 /* Pods_iOS_AlamoFireTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_AlamoFireTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8DFE8E014CF2327D2489817 /* Pods-iOS_AlamoFireUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_AlamoFireUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_AlamoFireUITests/Pods-iOS_AlamoFireUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		D09B325CF90B1380ED594B35 /* Pods-iOS_AlamoFireTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_AlamoFireTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_AlamoFireTests/Pods-iOS_AlamoFireTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				8815FC051DEC7408006B75E0 /* LaunchScreen.storyboard */,
 				8815FC081DEC7408006B75E0 /* Info.plist */,
 				8815FC2A1DEC75F0006B75E0 /* TestViewController.swift */,
+				8815FC2E1DEC8C29006B75E0 /* Manager.swift */,
 				8815FC2C1DEC7920006B75E0 /* Post.swift */,
 			);
 			path = iOS_AlamoFire;
@@ -456,6 +459,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8815FBFF1DEC7408006B75E0 /* DetailViewController.swift in Sources */,
+				8815FC2F1DEC8C29006B75E0 /* Manager.swift in Sources */,
 				8815FBFD1DEC7408006B75E0 /* MasterViewController.swift in Sources */,
 				8815FC2B1DEC75F0006B75E0 /* TestViewController.swift in Sources */,
 				8815FBFB1DEC7408006B75E0 /* AppDelegate.swift in Sources */,

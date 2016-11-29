@@ -15,6 +15,8 @@ class Post:Mappable {
     var title:String = ""
     var userId:Int = 0
     
+    init(){
+    }
     required init?(map: Map){
     }
     func mapping(map: Map) {
