@@ -96,6 +96,16 @@ class MasterViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            if let split = self.splitViewController {
+                let controllers = split.viewControllers
+                self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+                if let detailVC = self.detailViewController,
+                    let detailItem = detailVC.detailItem,
+                    detailItem.id == _manager.getPost(at: indexPath.row).id {
+                    detailVC.detailDescriptionLabel.text = ""
+                    detailVC.detailBodyTextView.text = ""
+                }
+            }
             _manager.removePost(at: indexPath.row)
             self.updateDisplay()
         } else if editingStyle == .insert {

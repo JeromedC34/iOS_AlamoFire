@@ -38,6 +38,13 @@ class Manager {
     func clearPosts() {
         _lastPosts = []
     }
+    func getPost(at:Int) -> Post {
+        if _lastPosts.count > at {
+            return _lastPosts[at]
+        } else {
+            return Post()
+        }
+    }
     func removePost(at:Int) {
         let post = _lastPosts[at]
         let url:String = "http://jsonplaceholder.typicode.com/posts/\(post.id)"
