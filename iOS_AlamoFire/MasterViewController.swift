@@ -77,10 +77,12 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let post = _manager.getLastPosts()[indexPath.row]
-                self.detailViewController = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                self.detailViewController?.detailItem = post
-                self.detailViewController?.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-                self.detailViewController?.navigationItem.leftItemsSupplementBackButton = true
+                if let dvc = (segue.destination as! UINavigationController).topViewController as? DetailViewController {
+                    dvc.detailItem = post
+                    dvc.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                    dvc.navigationItem.leftItemsSupplementBackButton = true
+                    self.detailViewController = dvc
+                }
             }
         }
     }
@@ -109,7 +111,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let split = self.splitViewController {
+            if let _ = self.splitViewController {
                 if let detailVC = self.detailViewController,
                     let detailItem = detailVC.detailItem,
                     detailItem.id == _manager.getPost(at: indexPath.row).id {
