@@ -10,7 +10,12 @@ import Foundation
 import Alamofire
 import AlamofireObjectMapper
 
+protocol ManagerDelegate {
+    func postsGotten(manager:Manager, posts:[Post])
+}
+
 class Manager {
+    var delegate:ManagerDelegate?
     private static var _instance:Manager?
     public static var instance:Manager {
         if Manager._instance == nil {
@@ -29,9 +34,19 @@ class Manager {
         Alamofire.request(url).responseArray { (response: DataResponse<[Post]>) in
             if let postsResponse = response.result.value {
                 self._lastPosts = postsResponse
+                self.delegate?.postsGotten(manager: self, posts: self._lastPosts)
                 if launchAfterUpdate != nil {
                     launchAfterUpdate!()
                 }
+            }
+        }
+    }
+    func getPostsNoClosure() {
+        let url:String = "http://jsonplaceholder.typicode.com/posts"
+        Alamofire.request(url).responseArray { (response: DataResponse<[Post]>) in
+            if let postsResponse = response.result.value {
+                self._lastPosts = postsResponse
+                self.delegate?.postsGotten(manager: self, posts: self._lastPosts)
             }
         }
     }

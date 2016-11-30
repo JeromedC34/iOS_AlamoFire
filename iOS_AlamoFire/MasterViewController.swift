@@ -8,14 +8,20 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController, UISplitViewControllerDelegate {
+class MasterViewController: UITableViewController, UISplitViewControllerDelegate, ManagerDelegate {
     
     var detailViewController: DetailViewController? = nil
     private var _manager:Manager = Manager.instance
     
+    func postsGotten(manager:Manager, posts:[Post]) {
+        self.tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        _manager.getPosts(launchAfterUpdate:{self.updateDisplay()})
+        _manager.delegate = self
+//        _manager.getPosts(launchAfterUpdate:{self.updateDisplay()})
+        _manager.getPostsNoClosure()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
         
@@ -39,7 +45,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         if (self.refreshControl?.isRefreshing)! {
             _manager.clearPosts()
             self.updateDisplay()
-            _manager.getPosts(launchAfterUpdate:{self.updateDisplay()})
+//            _manager.getPosts(launchAfterUpdate:{self.updateDisplay()})
+            _manager.getPostsNoClosure()
             self.refreshControl?.endRefreshing()
         }
     }
