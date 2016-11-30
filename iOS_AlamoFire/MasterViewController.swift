@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, UISplitViewControllerDelegate {
     
     var detailViewController: DetailViewController? = nil
     private var _manager:Manager = Manager.instance
@@ -22,6 +22,7 @@ class MasterViewController: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewPost(_:)))
         self.navigationItem.rightBarButtonItem = addButton
         if let split = self.splitViewController {
+            split.delegate = self
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
@@ -29,10 +30,15 @@ class MasterViewController: UITableViewController {
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.tableView?.addSubview(refreshControl!)
     }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return tableView.indexPathForSelectedRow == nil
+    }
 
     override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if (self.refreshControl?.isRefreshing)! {
             _manager.clearPosts()
+            self.updateDisplay()
             _manager.getPosts(launchAfterUpdate:{self.updateDisplay()})
             self.refreshControl?.endRefreshing()
         }
@@ -64,10 +70,10 @@ class MasterViewController: UITableViewController {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let post = _manager.getLastPosts()[indexPath.row]
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = post
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-                controller.navigationItem.leftItemsSupplementBackButton = true
+                self.detailViewController = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                self.detailViewController?.detailItem = post
+                self.detailViewController?.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                self.detailViewController?.navigationItem.leftItemsSupplementBackButton = true
             }
         }
     }
@@ -97,13 +103,10 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let split = self.splitViewController {
-                let controllers = split.viewControllers
-                self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
                 if let detailVC = self.detailViewController,
                     let detailItem = detailVC.detailItem,
                     detailItem.id == _manager.getPost(at: indexPath.row).id {
-                    detailVC.detailDescriptionLabel.text = ""
-                    detailVC.detailBodyTextView.text = ""
+                    detailVC.detailItem = Post()
                 }
             }
             _manager.removePost(at: indexPath.row)
