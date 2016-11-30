@@ -14,6 +14,12 @@ protocol ManagerDelegate {
     func postsGotten(manager:Manager, posts:[Post])
 }
 
+extension ManagerDelegate {
+    func postsGotten(manager:Manager, posts:[Post]) {
+        // Just to have this method optional!
+    }
+}
+
 class Manager {
     var delegate:ManagerDelegate?
     private static var _instance:Manager?
